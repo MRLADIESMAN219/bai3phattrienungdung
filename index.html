@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nova Products Console - Escuelajs</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#0b1020;
+      --bg1:#0f1730;
+      --card:#111a33;
+      --card2:#0f1833;
+      --text:#e9ecf3;
+      --muted:#a8b0c2;
+      --border:rgba(255,255,255,.08);
+      --primary:#7c5cff;
+      --primary2:#39d98a;
+      --warning:#ffd166;
+      --danger:#ff5c7a;
+      --shadow: 0 14px 40px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+
+    body{
+      background:
+        radial-gradient(1200px 500px at 10% -10%, rgba(124,92,255,.35), transparent 55%),
+        radial-gradient(900px 450px at 90% 0%, rgba(57,217,138,.22), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .glass{
+      background: rgba(17,26,51,.72);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .topbar{
+      border-radius: var(--radius);
+      padding: 18px 18px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(124,92,255,.22), rgba(57,217,138,.10)),
+        rgba(17,26,51,.55);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+    }
+
+    .brand-title{
+      font-weight: 800;
+      letter-spacing: .2px;
+      margin: 0;
+      line-height: 1.1;
+    }
+    .brand-sub{
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .pill{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      padding: 8px 10px;
+    }
+
+    .search-input{
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .search-input::placeholder{ color: rgba(233,236,243,.55); }
+    .search-input:focus{
+      box-shadow: 0 0 0 .2rem rgba(124,92,255,.18);
+      border-color: rgba(124,92,255,.55);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
+
+    .form-select{
+      background-color: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .form-select:focus{
+      box-shadow: 0 0 0 .2rem rgba(124,92,255,.18);
+      border-color: rgba(124,92,255,.55);
+    }
+
+    .btn-primary{
+      background: linear-gradient(135deg, var(--primary), #9b7bff);
+      border: 0;
+      box-shadow: 0 10px 30px rgba(124,92,255,.25);
+    }
+    .btn-outline-primary{
+      color: var(--text);
+      border: 1px solid rgba(124,92,255,.55);
+      background: rgba(124,92,255,.12);
+    }
+    .btn-outline-primary:hover{
+      background: rgba(124,92,255,.22);
+      border-color: rgba(124,92,255,.85);
+      color: var(--text);
+    }
+    .btn-outline-secondary{
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+    }
+    .btn-outline-secondary:hover{
+      background: rgba(255,255,255,.09);
+      border-color: rgba(255,255,255,.14);
+      color: var(--text);
+    }
+
+    .badge-soft{
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-weight: 600;
+    }
+    .badge-price{
+      background: rgba(57,217,138,.12);
+      border: 1px solid rgba(57,217,138,.35);
+      color: #bff6dc;
+    }
+
+    .table-wrap{
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(17,26,51,.55);
+    }
+
+    .table{
+      margin: 0;
+      color: var(--text);
+    }
+    .table thead th{
+      background: rgba(255,255,255,.04);
+      border-bottom: 1px solid var(--border);
+      color: rgba(233,236,243,.85);
+      font-weight: 700;
+      padding-top: 14px;
+      padding-bottom: 14px;
+      white-space: nowrap;
+    }
+    .table tbody td{
+      border-top: 1px solid rgba(255,255,255,.06);
+      vertical-align: middle;
+    }
+    .table-hover tbody tr:hover{
+      background: rgba(124,92,255,.08);
+    }
+
+    .row-clickable{ cursor: pointer; }
+
+    .id-chip{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      font-weight: 650;
+    }
+
+    .truncate-1{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 420px;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    .thumbs{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+    }
+    .img-thumb{
+      width: 46px; height: 46px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .img-thumb:hover{
+      transform: translateY(-2px) scale(1.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      border-color: rgba(124,92,255,.5);
+    }
+
+    .meta-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pagination .page-link{
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .pagination .page-link:hover{
+      background: rgba(255,255,255,.08);
+    }
+
+    .sort-indicator{
+      font-size: 12px;
+      opacity: .8;
+      margin-left: 6px;
+    }
+
+    /* Alerts (bootstrap) tweak for dark */
+    .alert{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+    }
+    .alert-success{ border-color: rgba(57,217,138,.35); }
+    .alert-danger{ border-color: rgba(255,92,122,.35); }
+    .alert-warning{ border-color: rgba(255,209,102,.35); }
+
+    /* Modal dark */
+    .modal-content{
+      background: rgba(17,26,51,.92);
+      border: 1px solid var(--border);
+      color: var(--text);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+    }
+    .modal-header, .modal-footer{
+      border-color: rgba(255,255,255,.08);
+    }
+    .form-control, textarea{
+      background: rgba(255,255,255,.05) !important;
+      border: 1px solid var(--border) !important;
+      color: var(--text) !important;
+    }
+    .form-control:focus, textarea:focus{
+      box-shadow: 0 0 0 .2rem rgba(124,92,255,.18) !important;
+      border-color: rgba(124,92,255,.55) !important;
+    }
+
+    .spinner-border{ color: #c9c2ff; }
+
+    @media (max-width: 576px){
+      .truncate-1{ max-width: 220px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container py-4">
+
+    <!-- Topbar -->
+    <div class="topbar mb-3">
+      <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-3">
+          <div class="rounded-circle d-flex align-items-center justify-content-center"
+               style="width:44px;height:44px;border:1px solid var(--border);background:rgba(255,255,255,.06);">
+            ⚡
+          </div>
+          <div>
+            <h3 class="brand-title">Nova Products Console</h3>
+            <div class="brand-sub">
+              API: <span class="text-decoration-underline">https://api.escuelajs.co/api/v1/products</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+          <div class="pill d-flex align-items-center gap-2">
+            <span class="small text-muted">Tìm</span>
+            <input id="searchInput"
+                   type="text"
+                   class="form-control form-control-sm search-input"
+                   style="width:240px"
+                   placeholder="Tìm theo title (onChanged)..."
+                   aria-label="Tìm theo title">
+          </div>
+
+          <select id="pageSizeSelect"
+                  class="form-select form-select-sm"
+                  style="width: 140px;"
+                  aria-label="Số dòng mỗi trang"
+                  title="Số dòng mỗi trang">
+            <option value="5">5 / trang</option>
+            <option value="10" selected>10 / trang</option>
+            <option value="20">20 / trang</option>
+          </select>
+
+          <button id="btnExportCsv" class="btn btn-sm btn-outline-primary" type="button">
+            Export CSV
+          </button>
+
+          <button id="btnOpenCreate" class="btn btn-sm btn-primary" type="button">
+            + Tạo sản phẩm
+          </button>
+        </div>
+      </div>
+
+      <div id="alertBox" class="mt-3"></div>
+    </div>
+
+    <!-- Main card -->
+    <div class="glass p-3">
+      <div class="meta-row mb-2">
+        <div id="statusText">Đang tải dữ liệu...</div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge-soft">Tổng: <span id="countBadge">0</span></span>
+          <span class="badge-soft">Trang: <span id="pageText">1</span></span>
+        </div>
+      </div>
+
+      <div class="table-responsive table-wrap">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th style="width: 110px;">ID</th>
+
+              <th>
+                Title
+                <button id="sortTitleBtn" class="btn btn-sm btn-outline-secondary ms-2" type="button">
+                  Sort <span id="sortTitleIndicator" class="sort-indicator"></span>
+                </button>
+              </th>
+
+              <th style="width: 190px;">
+                Price
+                <button id="sortPriceBtn" class="btn btn-sm btn-outline-secondary ms-2" type="button">
+                  Sort <span id="sortPriceIndicator" class="sort-indicator"></span>
+                </button>
+              </th>
+
+              <th style="width: 210px;">Category</th>
+              <th style="width: 260px;">Images</th>
+            </tr>
+          </thead>
+
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="small text-muted">
+          Mẹo: Click vào dòng để xem chi tiết / sửa.
+        </div>
+
+        <nav aria-label="Pagination">
+          <ul class="pagination mb-0">
+            <li class="page-item">
+              <button id="btnPrev" class="page-link" type="button" aria-label="Prev page">← Prev</button>
+            </li>
+            <li class="page-item">
+              <button id="btnNext" class="page-link" type="button" aria-label="Next page">Next →</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail/Edit Modal -->
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title" id="detailTitle">Product Detail</h5>
+            <div class="small text-muted" id="detailSub"></div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div id="detailView">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="fw-semibold mb-1">Description</div>
+                <div id="detailDesc" class="text-muted"></div>
+              </div>
+              <div class="col-md-6">
+                <div class="fw-semibold mb-1">Images</div>
+                <div id="detailImages" class="d-flex flex-wrap gap-2"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="detailEdit" class="d-none">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label" for="editTitle">Title</label>
+                <input id="editTitle" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="editPrice">Price</label>
+                <input id="editPrice" type="number" class="form-control" />
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="editDesc">Description</label>
+                <textarea id="editDesc" class="form-control" rows="3"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="editCategoryId">Category</label>
+                <select id="editCategoryId" class="form-select" aria-label="Category"></select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="editImages">Images (mỗi dòng 1 URL)</label>
+                <textarea id="editImages" class="form-control" rows="3" placeholder="https://..."></textarea>
+              </div>
+              <div class="col-12">
+                <div class="small text-muted">Gửi đủ field cho dễ dùng.</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="detailLoading" class="d-none text-center py-4">
+            <div class="spinner-border" role="status" aria-label="Loading"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button id="btnToggleEdit" class="btn btn-outline-secondary" type="button">Edit</button>
+          <button id="btnSaveEdit" class="btn btn-primary d-none" type="button">Save</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Modal -->
+  <div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title">Tạo sản phẩm</h5>
+            <div class="small text-muted">POST /products</div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="createTitle">Title *</label>
+              <input id="createTitle" class="form-control" placeholder="New Product" />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="createPrice">Price *</label>
+              <input id="createPrice" type="number" class="form-control" placeholder="10" />
+            </div>
+
+            <div class="col-12">
+              <label class="form-label" for="createDesc">Description *</label>
+              <textarea id="createDesc" class="form-control" rows="3" placeholder="A description"></textarea>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="createCategoryId">Category *</label>
+              <select id="createCategoryId" class="form-select" aria-label="Category"></select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="createImages">Images * (mỗi dòng 1 URL)</label>
+              <textarea id="createImages" class="form-control" rows="3" placeholder="https://placehold.co/600x400"></textarea>
+            </div>
+
+            <div class="col-12">
+              <div class="small text-muted">
+                * Bắt buộc theo schema. Images là mảng URL hợp lệ.
+              </div>
+            </div>
+          </div>
+
+          <div id="createLoading" class="d-none text-center py-4">
+            <div class="spinner-border" role="status" aria-label="Loading"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button id="btnCreate" class="btn btn-primary" type="button">Create</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
